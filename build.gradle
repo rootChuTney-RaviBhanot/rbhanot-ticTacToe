@@ -67,6 +67,10 @@ test {
     }
 }
 
+task stage {
+    dependsOn build
+}
+
 sourceSets {
     tests {
         java {
