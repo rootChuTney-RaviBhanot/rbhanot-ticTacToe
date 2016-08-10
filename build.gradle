@@ -92,11 +92,9 @@ test {
 }
 
 sourceSets {
-    tests {
+    test {
         java {
-            compileClasspath += main.output + test.output
-            runtimeClasspath += main.output + test.output
-            srcDir file('test')
+            srcDir file('test/java')
         }
     }
 }

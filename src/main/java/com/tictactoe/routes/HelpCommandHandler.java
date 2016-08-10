@@ -8,7 +8,7 @@ import com.tictactoe.model.utils.TicTacToeConstants;
 import java.util.Map;
 
 /**
- * Created by ravi on 8/7/16.
+ * Class to handle help command response
  */
 public class HelpCommandHandler implements SlashCommandHandler {
     private static final String HELP_TEXT = "/ttt start [user] : start a new TicTacToe game with user on a 3x3 board\n" +

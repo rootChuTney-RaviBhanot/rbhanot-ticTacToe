@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 
 /**
- * Created by ravi on 8/7/16.
+ * Class to handle end command
  */
 public class EndCommandHandler implements SlashCommandHandler {
     private static final Logger LOGGER  = LoggerFactory.getLogger(EndCommandHandler.class);

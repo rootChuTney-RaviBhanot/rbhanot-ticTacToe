@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Created by ravi on 8/7/16.
+ * Class to handle start command
  */
 public class StartCommandHandler implements SlashCommandHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(StartCommandHandler.class);

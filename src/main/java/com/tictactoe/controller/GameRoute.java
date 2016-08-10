@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by ravi on 8/8/16.
+ * Class to handle/control the different commands sent to the api
  */
 public class GameRoute {
     private static final Logger LOGGER = LoggerFactory.getLogger(GameRoute.class);
@@ -25,7 +25,7 @@ public class GameRoute {
 
     /**
      *
-     * slackCommand.getText() will be the command for the game
+     * Method to handle gameRouteInput to choose correct Handler routine to handle the current request
      *
      * start : start a new game with a user
      * play :  position chose to play by current player
@@ -33,13 +33,13 @@ public class GameRoute {
      * status : display current board status with a reminder of whose turn it is
      * help : prints game rules and sample commands
      *
-     * @param GameRouteInput
-     * @return GameRouteOutput
+     * @param gameRouteInput input object of the request
+     * @return gameRouteOutput output object to convert to json
      */
     public static GameRouteOutput handleRequest(GameRouteInput gameRouteInput) {
-        LOGGER.info("command : {}, text : {}, channel_id : {}, channelName : {}, user_id : {}, user_name : {}",
+        LOGGER.info("command : {}, text : {}, channel_id : {}, channelName : {}, user_id : {}, user_name : {}, team_id : {}, team_domain : {}",
                 gameRouteInput.getCommand(), gameRouteInput.getText(), gameRouteInput.getChannel_id(), gameRouteInput.getChannel_name(),
-                gameRouteInput.getUser_id(), gameRouteInput.getUser_name());
+                gameRouteInput.getUser_id(), gameRouteInput.getUser_name(), gameRouteInput.getTeam_id(), gameRouteInput.getTeam_domain());
         GameRouteOutput output;
         String[] commandParts = gameRouteInput.getText().split(TicTacToeConstants.DELIMITER);
         String option = commandParts[0];
@@ -60,9 +60,7 @@ public class GameRoute {
                 output = helpCommandHandler.handle(gameRouteInput, channelToGameMap);
                 break;
             default:
-                output = new GameRouteOutput();
-                output.setResponse_type(TicTacToeConstants.EPHEMERAL_RESPONSE_TYPE);
-                output.setText("Invalid input command");
+                output = new GameRouteOutput(TicTacToeConstants.EPHEMERAL_RESPONSE_TYPE, "Invalid input command");
         }
 
         return output;

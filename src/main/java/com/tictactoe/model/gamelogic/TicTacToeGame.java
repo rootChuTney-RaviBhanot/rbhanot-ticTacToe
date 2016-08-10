@@ -3,7 +3,14 @@ package com.tictactoe.model.gamelogic;
 import com.tictactoe.model.utils.TicTacToeConstants;
 
 /**
- * Created by ravi on 8/8/16.
+ * Class containing logic of the whole game
+ * matrix - the board of the game
+ * player1 - first player in the game
+ * player2 - second player in the game
+ * currentPlayer - currently turn of which player
+ * currentPlayerMark - current turn player's marking in the game
+ * numPlays - number of turns already played
+ * status - current game status
  */
 public class TicTacToeGame {
     private final int[][] matrix;
@@ -13,7 +20,6 @@ public class TicTacToeGame {
     private int currentPlayerMark;
     private int numPlays;
     private TicTacToeConstants.Status status = TicTacToeConstants.Status.IN_PROGRESS;
-
 
     public TicTacToeGame(String player1, final String player2) {
         this.player1 = player1;
@@ -95,9 +101,8 @@ public class TicTacToeGame {
 
     /**
      * Check if there is a completed line with given mark.
-     *
      * @param mark
-     * @return
+     * @return boolean
      */
     public boolean hasCompletedLine(int mark) {
         return hasCompletedRow(mark) || hasCompletedColumn(mark) || hasCompletedDiagonal(mark) || hasCompletedReverseDiagonal(mark);
@@ -204,8 +209,7 @@ public class TicTacToeGame {
 
     /**
      * Get currentPlayer and currentPlayerMark
-     *
-     * @return
+     * @return String
      */
     public String getCurrentTurn(){
         if (this.currentPlayerMark == TicTacToeConstants.Mark_X){
@@ -218,7 +222,7 @@ public class TicTacToeGame {
     }
 
     /**
-     * Either player ended the game
+     * Method to update status if either player ended the game
      */
     public void end() {
         status = player1.equals(currentPlayer)? TicTacToeConstants.Status.PLAYER1_ENDED : TicTacToeConstants.Status.PLAYER2_ENDED;
