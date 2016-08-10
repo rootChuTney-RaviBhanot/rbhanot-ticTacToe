@@ -3,10 +3,10 @@ A tic-tac-toe game that can be played via slash commands on Slack.
 
 Commands :-
 /ttt start [user] : start a new TicTacToe game with user on a 3x3 board
-/ttt play [position] : choose an empty position for your next play based on this given board
-           | 1 | 2 | 3 |
-           | 4 | 5 | 6 |
-           | 7 | 8 | 9 |  
+/ttt play [position] : choose an empty position for your next play based on this given board<br />
+           | 1 | 2 | 3 |<br />
+           | 4 | 5 | 6 |<br />
+           | 7 | 8 | 9 |<br />
 /ttt end : end the game at the current state leading to your opponent's victory.
 /ttt status : display current board status with a reminder of whose turn it is.
 /ttt help : manual for the ttt slash command.
