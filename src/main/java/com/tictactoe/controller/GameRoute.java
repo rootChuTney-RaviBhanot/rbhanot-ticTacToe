@@ -33,7 +33,7 @@ public class GameRoute {
      * status : display current board status with a reminder of whose turn it is
      * help : prints game rules and sample commands
      *
-     * @param
+     * @param GameRouteInput
      * @return GameRouteOutput
      */
     public static GameRouteOutput handleRequest(GameRouteInput gameRouteInput) {
@@ -41,7 +41,7 @@ public class GameRoute {
                 gameRouteInput.getCommand(), gameRouteInput.getText(), gameRouteInput.getChannel_id(), gameRouteInput.getChannel_name(),
                 gameRouteInput.getUser_id(), gameRouteInput.getUser_name());
         GameRouteOutput output;
-        String[] commandParts = gameRouteInput.getCommand().split(TicTacToeConstants.DELIMITER);
+        String[] commandParts = gameRouteInput.getText().split(TicTacToeConstants.DELIMITER);
         String option = commandParts[0];
         switch(option.toLowerCase()){
             case "start":

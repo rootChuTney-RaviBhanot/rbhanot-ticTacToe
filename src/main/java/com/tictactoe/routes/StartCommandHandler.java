@@ -25,7 +25,7 @@ public class StartCommandHandler implements SlashCommandHandler {
 
     @Override
     public GameRouteOutput handle(GameRouteInput gameRouteInput, Map<String, TicTacToeGame> channelToGameMap) {
-        String[] commandParts = gameRouteInput.getCommand().split(TicTacToeConstants.DELIMITER);
+        String[] commandParts = gameRouteInput.getText().split(TicTacToeConstants.DELIMITER);
         if (commandParts.length < 2) {
             return new GameRouteOutput(TicTacToeConstants.EPHEMERAL_RESPONSE_TYPE, "Need a competitor's name from this channel to start the game");
         } else if (commandParts.length > 2) {
