@@ -37,8 +37,7 @@ public class StartCommandHandler implements SlashCommandHandler {
         }
 
         String competitorName = commandParts[1];
-
-        String SLACK_BOT_TOKEN = TicTacToeApplication.SLACK_TOKEN;
+        String SLACK_BOT_TOKEN = System.getenv("SLACK_TOKEN");
 
         SlackSession session = SlackSessionFactory.createWebSocketSlackSession(SLACK_BOT_TOKEN);
         try {

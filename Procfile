@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dserver.port=8080 -jar build/libs/rbhanot-ticTacToe-all.jar
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar app.jar

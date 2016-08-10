@@ -11,13 +11,37 @@
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'distribution'
-//apply from: 'gradle/gretty.plugin'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'application'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+jar {
+
+    baseName = 'app'
+    version = '1.0.0'
+    mainClassName = "com.tictactoe.application.TicTacToeApplication"
+
+    manifest {
+        attributes 'Implementation-Title': 'rbhanot-ticTacToe.jar'
+        attributes "Implementation-Version": version
+        attributes "Main-Class" : 'com.tictactoe.application.TicTacToeApplication'
+    }
+
+    // remove the security files (from mail.jar / activation.jar) so that the jar will be executable.
+
+    doFirst {
+        from (configurations.runtime.resolve().collect { it.isDirectory() ? it : zipTree(it) }) {
+            exclude 'META-INF/MANIFEST.MF'
+            exclude 'META-INF/*.SF'
+            exclude 'META-INF/*.DSA'
+            exclude 'META-INF/*.RSA'
+        }
+    }
+}
 
 buildscript {
     repositories {
@@ -67,10 +91,6 @@ test {
     }
 }
 
-task stage {
-    dependsOn build
-}
-
 sourceSets {
     tests {
         java {
@@ -81,34 +101,15 @@ sourceSets {
     }
 }
 
-distributions {
-    main {
-        baseName = 'rbhanot-ticTacToe'
-        contents {
-            from war.outputs.files
-        }
+task stage(type: Copy, dependsOn: [clean, build, jar]) {
+    from jar.archivePath
+    into project.rootDir
+    rename {
+        'app.jar'
     }
 }
-
-tasks.withType(Tar) {
-    compression = Compression.GZIP
-}
-
-//create a single Jar with all dependencies
-task fatJar(type: Jar) {
-    manifest {
-        attributes 'Implementation-Title': 'rbhanot-ticTacToe.jar',
-                'Implementation-Version': 1.0,
-                'Main-Class': 'com.tictactoe.application.TicTacToeApplication'
-    }
-    baseName = project.name + '-all'
-    doFirst {
-        from (configurations.runtime.resolve().collect { it.isDirectory() ? it : zipTree(it) }) {
-            exclude 'META-INF/MANIFEST.MF'
-            exclude 'META-INF/*.SF'
-            exclude 'META-INF/*.DSA'
-            exclude 'META-INF/*.RSA'
-        }
-    }
-    with jar
-}
+stage.mustRunAfter(clean)
+//
+//clean << {
+//    project.file('app.jar').delete()
+//}
