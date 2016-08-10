@@ -4,7 +4,7 @@ package com.tictactoe.model.utils;
  * Created by ravi on 8/8/16.
  */
 public class TicTacToeConstants {
-    public static final String DELIMITER = " ";
+    public static final String DELIMITER = "\\+";
     public static final String EPHEMERAL_RESPONSE_TYPE = "ephemeral";
     public static final String IN_CHANNEL_RESPONSE_TYPE = "in_channel";
     public enum Status {
