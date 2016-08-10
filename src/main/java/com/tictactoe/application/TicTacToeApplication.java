@@ -20,17 +20,12 @@ import static spark.Spark.get;
 public class TicTacToeApplication {
     private static final Logger LOGGER = LoggerFactory.getLogger(TicTacToeApplication.class);
     private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    // Declare dependencies
-    public static GameRoute gameRoute = null;
     public static String SLACK_TOKEN = null;
 
 
     public static void main(String[] args) {
         // Read properties
         SLACK_TOKEN = getProperties().getProperty("slack_token");
-
-        // Instantiate your dependencies
-        gameRoute = new GameRoute();
 
         // Configure Spark
         port(8080);
@@ -45,6 +40,7 @@ public class TicTacToeApplication {
             Object output = GameRoute.handleRequest(gson.fromJson(request.body(), GameRouteInput.class));
             response.type("application/json");
             response.status(200);
+            response.header("Access-Control-Allow-Origin", "*");
             return gson.toJson(output);
         });
 
