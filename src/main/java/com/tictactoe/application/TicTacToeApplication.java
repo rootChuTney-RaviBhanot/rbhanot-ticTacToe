@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tictactoe.controller.GameRoute;
 import com.tictactoe.model.utils.GameRouteInput;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +21,12 @@ public class TicTacToeApplication {
 
     public static void main(String[] args) {
         // Configure Spark
-        port(8080);
+        String port = System.getenv("PORT");
+        port((port!=null && StringUtils.isNotEmpty(port)) ? Integer.parseInt(port) : 8080);
+
+        get("/", (request, response) -> {
+            return "Hello !!!";
+        });
 
         get("/health", (request, response) -> {
             response.status(200);

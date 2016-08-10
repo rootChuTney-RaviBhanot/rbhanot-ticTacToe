@@ -54,7 +54,7 @@ buildscript {
 }
 
 gretty {
-    port = 8080
+    port = (System.getenv('PORT') != null) ? System.getenv('PORT').toInteger() : 8080
     servletContainer = 'jetty9'
     contextPath = "/"
 }
