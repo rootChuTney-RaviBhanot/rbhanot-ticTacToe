@@ -57,7 +57,7 @@ public class PlayCommandHandler implements SlashCommandHandler {
         // A normal turn for a game still in progress
         String currentTurn = (ticTacToeGame.getStatus() == TicTacToeConstants.Status.IN_PROGRESS) ? ticTacToeGame.getCurrentTurn() : "";
         return new GameRouteOutput(TicTacToeConstants.IN_CHANNEL_RESPONSE_TYPE,
-                gameRouteInput.getUser_name() + " marked at position:" + position + "\nCurrent board:" + ticTacToeGame.getCurrentMatrix() + "\n" + currentTurn);
+                gameRouteInput.getUser_name() + " marked at position:" + position + "\nCurrent board:\n" + ticTacToeGame.getCurrentMatrix() + "\n" + currentTurn);
     }
 
     /**

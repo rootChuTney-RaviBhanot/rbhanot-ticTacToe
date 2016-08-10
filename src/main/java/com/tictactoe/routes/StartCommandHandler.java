@@ -37,12 +37,13 @@ public class StartCommandHandler implements SlashCommandHandler {
         }
 
         String competitorName = commandParts[1];
+        
         String SLACK_BOT_TOKEN = System.getenv("SLACK_TOKEN");
-
         SlackSession session = SlackSessionFactory.createWebSocketSlackSession(SLACK_BOT_TOKEN);
         try {
             session.connect();
         } catch (IOException e) {
+            LOGGER.error("Exception while connecting session {}", e);
             return new GameRouteOutput(TicTacToeConstants.IN_CHANNEL_RESPONSE_TYPE, "Slack bot token value:" + SLACK_BOT_TOKEN + " unverified. Check token value and try again.");
         }
 
@@ -66,6 +67,7 @@ public class StartCommandHandler implements SlashCommandHandler {
         // Competitor exists. Good to start the game
         TicTacToeGame ticTacToeGame = new TicTacToeGame(gameRouteInput.getUser_name(), competitorName);
         channelToGameMap.putIfAbsent(gameRouteInput.getChannel_id(), ticTacToeGame);
-        return new GameRouteOutput(TicTacToeConstants.IN_CHANNEL_RESPONSE_TYPE, "Game starting between " + ticTacToeGame.getPlayer1() + " and " + ticTacToeGame.getPlayer2());
+        return new GameRouteOutput(TicTacToeConstants.IN_CHANNEL_RESPONSE_TYPE, "Game starting between " + ticTacToeGame.getPlayer1() +
+                " and " + ticTacToeGame.getPlayer2() + ".\n" + ticTacToeGame.getPlayer1() + " will play X");
     }
 }
