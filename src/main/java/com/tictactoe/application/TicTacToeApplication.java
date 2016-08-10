@@ -15,17 +15,13 @@ import static spark.Spark.post;
 import static spark.Spark.get;
 
 /**
- * Created by ravi on 8/7/16.
+ * Main class containing all the sparkjava routes
  */
 public class TicTacToeApplication {
     private static final Logger LOGGER = LoggerFactory.getLogger(TicTacToeApplication.class);
     private static Gson gson = new Gson();
-    private static GameRoute gameRoute;
 
     public static void main(String[] args) {
-        //Initialize dependencies
-        gameRoute = new GameRoute();
-
         // Configure Spark
         String port = System.getenv("PORT");
         port((port!=null && StringUtils.isNotEmpty(port)) ? Integer.parseInt(port) : 8080);
@@ -37,8 +33,8 @@ public class TicTacToeApplication {
 
         post("/game", (request, response) -> {
             String requestBody = request.body();
-            LOGGER.info("before request {}", requestBody);
-            Map<String, String> params = parseRequestBody(request.body());
+            LOGGER.info("request {}", requestBody);
+            Map<String, String> params = parseRequestBody(requestBody);
 
             GameRouteInput gameRouteInput = new GameRouteInput();
             gameRouteInput.setToken(params.get("token"));
@@ -52,10 +48,7 @@ public class TicTacToeApplication {
             gameRouteInput.setText(params.get("text"));
             gameRouteInput.setResponse_url(params.get("response_url"));
 
-            LOGGER.info("command : {}, text : {}, channel_id : {}, channelName : {}, user_id : {}, user_name : {}",
-                    gameRouteInput.getCommand(), gameRouteInput.getText(), gameRouteInput.getChannel_id(), gameRouteInput.getChannel_name(),
-                    gameRouteInput.getUser_id(), gameRouteInput.getUser_name());
-            Object output = gameRoute.handleRequest(gameRouteInput);
+            Object output = GameRoute.handleRequest(gameRouteInput);
             response.type("application/json");
             response.status(200);
             response.header("Access-Control-Allow-Origin", "*");
@@ -64,6 +57,11 @@ public class TicTacToeApplication {
 
     }
 
+    /*
+     * Method to parse request body to a map of parameter key-values
+     * @param string - containing request body
+     * @return Map - containing key value pairs
+     */
     public static Map<String, String> parseRequestBody(String body) {
         Map<String, String> params = new HashMap<String, String>();
         String[] keyValues = body.split("\\&");

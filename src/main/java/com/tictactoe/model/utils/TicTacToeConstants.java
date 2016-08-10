@@ -1,7 +1,7 @@
 package com.tictactoe.model.utils;
 
 /**
- * Created by ravi on 8/8/16.
+ * Constants used by the application
  */
 public class TicTacToeConstants {
     public static final String DELIMITER = "\\+";

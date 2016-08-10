@@ -1,7 +1,7 @@
 package com.tictactoe.model.utils;
 
 /**
- * Created by ravi on 8/8/16.
+ * Class to read input request into an object
  */
 public class GameRouteInput {
     private String token;

@@ -1,7 +1,7 @@
 package com.tictactoe.model.utils;
 
 /**
- * Created by ravi on 8/8/16.
+ * Class to create a response object which will be later converted to json
  */
 public class GameRouteOutput {
     private String response_type;
