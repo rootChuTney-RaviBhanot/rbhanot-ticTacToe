@@ -15,7 +15,7 @@ Built using gradle so requires "gradle stage" to do clean, build and jar which i
 used by heroku for deployment.<br />
 
 Can be deployed to heroku. Just need to set config var SLACK_TOKEN<br />
-config:set SLACK_TOKEN=<your slack token><br />
+config:set SLACK_TOKEN=your-slack-token<br />
 
 Use repository "simple-slack-api" to connect a session on a channel. SLACK_TOKEN is required for the same.<br />
 
